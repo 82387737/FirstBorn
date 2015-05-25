@@ -1,26 +1,63 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content" >
 
-    <LinearLayout
-        android:id="@+id/ll_menu"
+    <RelativeLayout
+        android:id="@+id/ll_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_gravity="top"
+        android:background="#99ccff" >
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp"
+        <ImageView
+            android:id="@+id/iv_left_titlebar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/erweima" />
+
+        <TextView
+            android:id="@+id/tv_middle_titlebar"
             android:layout_width="wrap_content"
-            android:layout_height="155dp" >
-        </android.support.v4.view.ViewPager>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="新时代大厦"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_middle_titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_middle_titlebar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/jiantou1_disable" />
+
+        <ImageView
+            android:id="@+id/iv_right_titlebar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/chuizi" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
+        android:layout_below="@id/ll_titlebar" >
+    </android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/ll_menu"
+        android:background="@drawable/middle_n"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
 
         <Button
@@ -64,4 +101,11 @@
             android:background="@drawable/me" />
     </LinearLayout>
 
-</LinearLayout>
+    <GridView android:layout_width="match_parent" >
+
+    </GridView>
+
+    <GridView>
+    </GridView>
+
+</RelativeLayout>
