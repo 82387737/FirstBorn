@@ -3,109 +3,129 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <RelativeLayout
-        android:id="@+id/ll_titlebar"
+    <FrameLayout
+        android:id="@+id/fl_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:background="#99ccff" >
-
-        <ImageView
-            android:id="@+id/iv_left_titlebar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="5dp"
-            android:src="@drawable/erweima" />
-
-        <TextView
-            android:id="@+id/tv_middle_titlebar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:text="新时代大厦"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/iv_middle_titlebar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_middle_titlebar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="3dp"
-            android:src="@drawable/jiantou1_disable" />
-
-        <ImageView
-            android:id="@+id/iv_right_titlebar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:src="@drawable/chuizi" />
-    </RelativeLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
-        android:layout_width="wrap_content"
-        android:layout_height="140dp"
-        android:layout_below="@id/ll_titlebar" >
-    </android.support.v4.view.ViewPager>
+        android:layout_height="match_parent" />
 
     <LinearLayout
-        android:id="@+id/ll_menu"
-        android:background="@drawable/middle_n"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/bt_menu1"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/family" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc" />
 
-        <Button
-            android:id="@+id/bt_menu2"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/work" />
+        <LinearLayout
+            android:id="@+id/ll_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/bt_menu3"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/home" />
+            <LinearLayout
+                android:id="@+id/ll_menu1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/bt_menu4"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/entertain" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/family" />
 
-        <Button
-            android:id="@+id/bt_menu5"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/me" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="家庭" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_menu2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/work" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="工作" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_menu3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/home" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="主页" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_menu4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/entertain" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="休闲" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_menu5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/me" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
-    <GridView android:layout_width="match_parent" >
-
-    </GridView>
-
-    <GridView>
-    </GridView>
 
 </RelativeLayout>
