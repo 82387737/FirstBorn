@@ -102,9 +102,12 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
+            android:clickable="true"
+            android:onClick="onClick"
             android:src="@drawable/arrow_left" />
 
         <TextView
+            android:id="@+id/tv_arrow_middle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
@@ -114,16 +117,21 @@
             android:text="明天有大雨" />
 
         <ImageView
+            android:id="@+id/iv_arrow_right"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
+            android:clickable="true"
+            android:onClick="onClick"
             android:src="@drawable/arrow_right" />
+        
+
     </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="53dp" />
+        android:layout_height="56dp" />
 
 </LinearLayout>
