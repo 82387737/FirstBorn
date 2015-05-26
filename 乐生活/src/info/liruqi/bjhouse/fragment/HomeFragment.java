@@ -2,18 +2,24 @@ package info.liruqi.bjhouse.fragment;
 
 import info.liruqi.bjhouse.R;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 public class HomeFragment extends Fragment {
+	private int lastPosition = 0;
 	private ViewPager vp;
 	private GridView gv;
 	private final int[] srcId = { R.drawable.a, R.drawable.b, R.drawable.c,
@@ -21,6 +27,20 @@ public class HomeFragment extends Fragment {
 	private final int[] gridId = {R.drawable.p1,R.drawable.p2,R.drawable.p3,R.drawable.p4};
 	private final String[] iconTopic = {"报修","订餐","家政","装修"};
 	private View view;
+	private LinearLayout ll_vp;
+	private ImageView iv_circle;
+	Handler handler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			int index = vp.getCurrentItem();
+			Log.i("haaaaaaaaaa",vp.getCurrentItem()+"" );
+			index++;
+			index %= srcId.length;
+
+			vp.setCurrentItem(index);
+			
+			sendEmptyMessageDelayed(0, 3000);
+		}
+	};
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -36,6 +56,7 @@ public class HomeFragment extends Fragment {
 
 	private void initUI() {
 		// TODO Auto-generated method stub
+		
 		setViewPager();
 		setGridView();
 	}
@@ -43,6 +64,45 @@ public class HomeFragment extends Fragment {
 	private void setViewPager() {
 		// TODO Auto-generated method stub
 		vp.setAdapter(new MyViewAdapter());
+		vp.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int position) {
+				ll_vp.getChildAt(position).setEnabled(true);
+				ll_vp.getChildAt(lastPosition).setEnabled(false);
+				lastPosition = position;	
+			}
+			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		for (int i=0;i< srcId.length;i++){
+			ll_vp = (LinearLayout)view.findViewById(R.id.ll_vp);
+        	iv_circle = new ImageView(getActivity());
+        	iv_circle.setImageResource(R.drawable.selector_circle_viewpager);
+        	LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        	lp.leftMargin = 15;
+        	lp.bottomMargin = 5;
+        	lp.rightMargin = 5;
+        	//把lp设置给iv_circle
+        	iv_circle.setLayoutParams(lp);
+        	
+        	//修改iv_circle的enable
+        	if(i != 0){
+        		iv_circle.setEnabled(false);
+        	}
+        	//ll是可见的，那么ll的子节点也会显示在界面上
+        	ll_vp.addView(iv_circle);
+        	handler.sendEmptyMessageDelayed(0, 2000);
+		}
 	}
 
 	private void setGridView() {

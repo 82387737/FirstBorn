@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/ll_titlebar"
@@ -47,12 +48,27 @@
             android:src="@drawable/chuizi" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="130dp"
-        android:layout_below="@id/ll_titlebar" >
-    </android.support.v4.view.ViewPager>
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/ll_titlebar" >
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:id="@+id/ll_vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/vp"
+            android:orientation="horizontal"
+            android:gravity="right" >
+        </LinearLayout>
+    </RelativeLayout>
 
     <GridView
         android:id="@+id/gv"
@@ -70,36 +86,36 @@
         android:background="#cccccc" />
 
     <RelativeLayout
-        android:layout_below="@id/iv_line"
         android:layout_width="wrap_content"
-        android:layout_height="30dp" >
+        android:layout_height="0dp"
+        android:layout_below="@id/iv_line"
+        android:layout_weight="1" >
 
         <ImageView
             android:id="@+id/iv_arrow_left"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/arrow_left" />
 
-        <TextView 
-            android:layout_toRightOf="@id/iv_arrow_left"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:text="明天有大雨"
-            />
+            android:layout_toRightOf="@id/iv_arrow_left"
+            android:gravity="left"
+            android:text="明天有大雨" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-			android:layout_marginRight="5dp"
-			android:layout_alignParentRight="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>
