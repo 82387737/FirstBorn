@@ -6,6 +6,7 @@ import info.liruqi.bjhouse.activity.ItemActivity;
 import info.liruqi.bjhouse.activity.OtherItemsActivity;
 import info.liruqi.bjhouse.customcomponent.MyDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -37,7 +38,8 @@ public class HomeFragment extends Fragment {
 	private final int[] gridId = { R.drawable.p1, R.drawable.p2, R.drawable.p3,
 			R.drawable.p4 };
 	private final String[] iconTopic = { "报修", "订餐", "家政", "装修" };
-	private final String[] textOfRain = {"很久以前下过雨","前些天下过一场雨","今天下雨了","明天要下雨","未来几天皆是有雨的","连绵之雨，不知道要下多久"};
+	private final String[] textOfRain = { "很久以前下过雨", "前些天下过一场雨", "今天下雨了",
+			"明天要下雨", "未来几天皆是有雨的", "连绵之雨，不知道要下多久" };
 	private View view;
 	private LinearLayout ll_vp;
 	private ImageView iv_circle;
@@ -69,14 +71,15 @@ public class HomeFragment extends Fragment {
 		gv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View args1, int position,
-					long arg3) {
-				if(position == 0){
+			public void onItemClick(AdapterView<?> arg0, View args1,
+					int position, long arg3) {
+				if (position == 0) {
 					startActivity(new Intent(getActivity(), ItemActivity.class));
-				}
-				else{
-					Intent intent = new Intent(getActivity(), OtherItemsActivity.class);
-					intent.putExtra("text", ((TextView)args1.findViewById(R.id.tv_gv)).getText());
+				} else {
+					Intent intent = new Intent(getActivity(),
+							OtherItemsActivity.class);
+					intent.putExtra("text", ((TextView) args1
+							.findViewById(R.id.tv_gv)).getText());
 					startActivity(intent);
 				}
 			}
@@ -91,15 +94,28 @@ public class HomeFragment extends Fragment {
 						-50, -100);
 			}
 		});
+		ImageView iv_right_titlebar = (ImageView) view
+				.findViewById(R.id.iv_right_titlebar);
+		iv_right_titlebar.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.setAction(Intent.ACTION_CALL);
+				intent.setData(Uri.parse("tel:18010092675"));
+				// activity的跳转
+				startActivity(intent);
+			}
+		});
 		ImageView iv_arrow_left = (ImageView) view
 				.findViewById(R.id.iv_arrow_left);
 		iv_arrow_left.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				textPosition--;
-				if(textPosition<0){
-					textPosition=3;
+				if (textPosition < 0) {
+					textPosition = 3;
 				}
 				// TODO Auto-generated method stub
 				tv_arrow_middle = (TextView) view
@@ -111,11 +127,11 @@ public class HomeFragment extends Fragment {
 		ImageView iv_arrow_right = (ImageView) view
 				.findViewById(R.id.iv_arrow_right);
 		iv_arrow_right.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				textPosition++;
-				if(textPosition>5){
+				if (textPosition > 5) {
 					textPosition = 3;
 				}
 				// TODO Auto-generated method stub
@@ -220,9 +236,10 @@ public class HomeFragment extends Fragment {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			if(MainActivity.srcIdSelected !=-1 && MainActivity.iconTopicSelected !=null){
-				return gridId.length+1;				
-			}else{
+			if (MainActivity.srcIdSelected != -1
+					&& MainActivity.iconTopicSelected != null) {
+				return gridId.length + 1;
+			} else {
 				return gridId.length;
 			}
 		}
@@ -245,14 +262,15 @@ public class HomeFragment extends Fragment {
 					null);
 			iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			tv_gv = (TextView) view.findViewById(R.id.tv_gv);
-			if(position == gridId.length && MainActivity.srcIdSelected !=-1 && MainActivity.iconTopicSelected !=null){
+			if (position == gridId.length && MainActivity.srcIdSelected != -1
+					&& MainActivity.iconTopicSelected != null) {
 				iv_gv.setBackgroundResource(MainActivity.srcIdSelected);
 				tv_gv.setText(MainActivity.iconTopicSelected);
-			}else{
+			} else {
 
 				iv_gv.setBackgroundResource(gridId[position]);
 				tv_gv.setText(iconTopic[position]);
-				
+
 			}
 			return view;
 		}
