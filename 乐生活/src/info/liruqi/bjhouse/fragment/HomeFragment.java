@@ -1,5 +1,6 @@
 package info.liruqi.bjhouse.fragment;
 
+import info.liruqi.bjhouse.MainActivity;
 import info.liruqi.bjhouse.R;
 import info.liruqi.bjhouse.activity.ItemActivity;
 import info.liruqi.bjhouse.activity.OtherItemsActivity;
@@ -213,10 +214,17 @@ public class HomeFragment extends Fragment {
 
 	public class MyGridAdapter extends BaseAdapter {
 
+		private ImageView iv_gv;
+		private TextView tv_gv;
+
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return gridId.length;
+			if(MainActivity.srcIdSelected !=-1 && MainActivity.iconTopicSelected !=null){
+				return gridId.length+1;				
+			}else{
+				return gridId.length;
+			}
 		}
 
 		@Override
@@ -235,10 +243,17 @@ public class HomeFragment extends Fragment {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view = View.inflate(getActivity(), R.layout.item_gridview,
 					null);
-			ImageView iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
-			TextView tv_gv = (TextView) view.findViewById(R.id.tv_gv);
-			iv_gv.setBackgroundResource(gridId[position]);
-			tv_gv.setText(iconTopic[position]);
+			iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
+			tv_gv = (TextView) view.findViewById(R.id.tv_gv);
+			if(position == gridId.length && MainActivity.srcIdSelected !=-1 && MainActivity.iconTopicSelected !=null){
+				iv_gv.setBackgroundResource(MainActivity.srcIdSelected);
+				tv_gv.setText(MainActivity.iconTopicSelected);
+			}else{
+
+				iv_gv.setBackgroundResource(gridId[position]);
+				tv_gv.setText(iconTopic[position]);
+				
+			}
 			return view;
 		}
 

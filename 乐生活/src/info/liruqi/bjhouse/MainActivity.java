@@ -24,7 +24,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements OnClickListener{
-
+	public static int srcIdSelected = -1;
+	public static String iconTopicSelected = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
