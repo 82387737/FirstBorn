@@ -19,8 +19,10 @@ public class EntertainmentFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = View.inflate(getActivity(), R.layout.other_fragment, null);
-		TextView tv = (TextView) view.findViewById(R.id.tv);
-		tv.setText("这是娱乐页");
+/*		TextView tv = (TextView) view.findViewById(R.id.tv);
+		tv.setText("Entertainment");*/
+		TextView tv_middle_titlebar = (TextView)view.findViewById(R.id.tv_middle_titlebar);
+		tv_middle_titlebar.setText("Entertainment");
 		return view;	
 		
 	}

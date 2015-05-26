@@ -17,6 +17,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_margin="5dp"
             android:clickable="true"
             android:onClick="onClick"
@@ -27,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_marginTop="5dp"
             android:text="新时代大厦"
             android:textColor="#ffffff"
@@ -46,14 +48,14 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_margin="5dp"
             android:src="@drawable/chuizi" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="135dp"
-        >
+        android:layout_height="135dp" >
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp"
@@ -98,15 +100,15 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:src="@drawable/arrow_left" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/iv_arrow_left"
             android:gravity="left|center_vertical"
             android:text="明天有大雨" />
@@ -115,8 +117,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
 

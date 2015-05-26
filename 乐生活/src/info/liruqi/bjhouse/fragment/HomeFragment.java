@@ -59,7 +59,6 @@ public class HomeFragment extends Fragment implements OnClickListener{
 			
 			@Override
 			public void onClick(View v) {
-				Log.i("er", "到底点了没有~！");
 				new MyDialog(getActivity()).showDialog(R.layout.erweima_dialog,-50,-100);
 			}
 		});
@@ -183,12 +182,11 @@ public class HomeFragment extends Fragment implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()){
 			case R.id.iv_left_titlebar:
-				Log.i("er", "到底点了没有~！");
 				new MyDialog(getActivity()).showDialog(R.layout.erweima_dialog,-50,-100);
 				break;
 		
 			case R.id.iv_right_titlebar:
-			
+				
 				break;
 			
 			case R.id.iv_middle_titlebar:
