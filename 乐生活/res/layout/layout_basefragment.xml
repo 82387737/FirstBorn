@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/ll_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="#666666"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/iv_left_titlebar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/erweima" />
+
+        <TextView
+            android:id="@+id/tv_middle_titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="新时代大厦"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_middle_titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_middle_titlebar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/jiantou1_disable" />
+
+        <ImageView
+            android:id="@+id/iv_right_titlebar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/chuizi" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="wrap_content"
+        android:layout_height="130dp"
+        android:layout_below="@id/ll_titlebar" >
+    </android.support.v4.view.ViewPager>
+
+    <GridView
+        android:id="@+id/gv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vp"
+        android:gravity="center"
+        android:numColumns="3" />
+
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/gv"
+        android:background="#cccccc" />
+
+    <RelativeLayout
+        android:layout_below="@id/iv_line"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp" >
+
+        <ImageView
+            android:id="@+id/iv_arrow_left"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/arrow_left" />
+
+        <TextView 
+            android:layout_toRightOf="@id/iv_arrow_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="明天有大雨"
+            />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+			android:layout_marginRight="5dp"
+			android:layout_alignParentRight="true"
+            android:src="@drawable/arrow_right" />
+    </RelativeLayout>
+
+</RelativeLayout>
