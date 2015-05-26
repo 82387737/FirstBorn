@@ -9,34 +9,38 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="二维码"
+        android:text="  "
         android:textSize="20sp" />
 
     <ImageView
-        android:layout_width="match_parent"
+        android:id="@+id/iv_line_up"
+        android:layout_width="2dp"
         android:layout_height="2dp"
         android:layout_below="@id/tv_top"
+        android:layout_centerHorizontal="true"
         android:background="#666666" />
 
     <ImageView
+        android:id="@+id/iv_erweima"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/iv_line_up"
         android:layout_centerInParent="true"
         android:src="@drawable/erweima_demo" />
 
-    <TextView
-        android:id="@+id/tv_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="扫一扫哦"
-        android:textSize="20sp" />
-
     <ImageView
-        android:layout_width="match_parent"
+        android:id="@+id/iv_line_down"
+        android:layout_width="2dp"
         android:layout_height="2dp"
-        android:layout_above="@id/tv_bottom"
+        android:layout_below="@id/iv_erweima"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
         android:background="#666666" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/iv_line_down"
+        android:text="  " />
 
 </RelativeLayout>
