@@ -1,6 +1,7 @@
 package info.liruqi.bjhouse.fragment;
 
 import info.liruqi.bjhouse.R;
+import info.liruqi.bjhouse.customcomponent.MyDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -18,7 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnClickListener{
 	private int lastPosition = 0;
 	private ViewPager vp;
 	private GridView gv;
@@ -32,7 +34,6 @@ public class HomeFragment extends Fragment {
 	Handler handler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			int index = vp.getCurrentItem();
-			Log.i("haaaaaaaaaa",vp.getCurrentItem()+"" );
 			index++;
 			index %= srcId.length;
 
@@ -52,6 +53,16 @@ public class HomeFragment extends Fragment {
 	private void initData() {
 		vp = (ViewPager) view.findViewById(R.id.vp);
 		gv = (GridView) view.findViewById(R.id.gv);
+		ImageView iv_left_titlebar = (ImageView) view
+				.findViewById(R.id.iv_left_titlebar);
+		iv_left_titlebar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Log.i("er", "到底点了没有~！");
+				new MyDialog(getActivity()).showDialog(R.layout.erweima_dialog,-50,-100);
+			}
+		});
 	}
 
 	private void initUI() {
@@ -166,6 +177,25 @@ public class HomeFragment extends Fragment {
 			return view;
 		}
 		
+		
+	}
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()){
+			case R.id.iv_left_titlebar:
+				Log.i("er", "到底点了没有~！");
+				new MyDialog(getActivity()).showDialog(R.layout.erweima_dialog,-50,-100);
+				break;
+		
+			case R.id.iv_right_titlebar:
+			
+				break;
+			
+			case R.id.iv_middle_titlebar:
+			
+				break;
+			
+		}
 		
 	}
 }

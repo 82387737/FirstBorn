@@ -16,9 +16,11 @@
             android:id="@+id/iv_left_titlebar"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:clickable="true"
+            android:onClick="onClick"
             android:layout_alignParentLeft="true"
             android:layout_margin="5dp"
-            android:src="@drawable/erweima" />
+            android:src="@drawable/erweima_icon" />
 
         <TextView
             android:id="@+id/tv_middle_titlebar"
