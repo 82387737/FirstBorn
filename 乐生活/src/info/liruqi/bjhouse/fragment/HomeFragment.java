@@ -133,7 +133,6 @@ public class HomeFragment extends Fragment {
 				// TODO Auto-generated method stub
 				new AlertDialog.Builder(getActivity())
 						.setTitle("功能管理")
-						.setView(view)
 						.setMultiChoiceItems(
 								new String[] { "WIFI", "周边商户", "访问管理", "停车",
 										"日程管理", "餐厅状态" }, null, null).show();
