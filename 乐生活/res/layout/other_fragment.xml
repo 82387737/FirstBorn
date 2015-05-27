@@ -55,6 +55,84 @@
             android:src="@drawable/chuizi"
             android:visibility="invisible" />
     </RelativeLayout>
+<RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="135dp" >
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/ll_titlebar" >
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:id="@+id/ll_vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/vp"
+            android:gravity="right"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vp"
+        android:gravity="center"
+        android:numColumns="3" />
+
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/gv"
+        android:background="#cccccc" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_below="@id/iv_line"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/iv_arrow_left"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:id="@+id/tv_arrow_middle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/iv_arrow_left"
+            android:gravity="left|center_vertical"
+            android:text="附近有餐厅" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_right"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:src="@drawable/arrow_right" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+    
 
 </LinearLayout>

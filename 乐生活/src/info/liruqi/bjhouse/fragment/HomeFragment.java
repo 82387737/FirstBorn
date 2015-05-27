@@ -8,6 +8,7 @@ import info.liruqi.bjhouse.customcomponent.MyDialog;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
 			R.drawable.d, };
 	private final int[] gridId = { R.drawable.p1, R.drawable.p2, R.drawable.p3,
 			R.drawable.p4 };
-	private final String[] iconTopic = { "报修", "订餐", "家政", "装修" };
+	private final String[] iconTopic = { "WIFI", "周边商户", "访问管理", "停车" };
 	private final String[] textOfRain = { "很久以前下过雨", "前些天下过一场雨", "今天下雨了",
 			"明天要下雨", "未来几天皆是有雨的", "连绵之雨，不知道要下多久" };
 	private View view;
@@ -135,7 +136,9 @@ public class HomeFragment extends Fragment {
 						.setTitle("功能管理")
 						.setMultiChoiceItems(
 								new String[] { "WIFI", "周边商户", "访问管理", "停车",
-										"日程管理", "餐厅状态" }, null, null).show();
+										"日程管理", "餐厅状态" }, null, null)
+						.setPositiveButton("确定", null)
+						.setNegativeButton("取消", null).show();
 			}
 		});
 

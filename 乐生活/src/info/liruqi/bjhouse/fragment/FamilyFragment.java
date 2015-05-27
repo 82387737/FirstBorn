@@ -7,6 +7,7 @@ import info.liruqi.bjhouse.activity.OtherItemsActivity;
 import info.liruqi.bjhouse.customcomponent.MyDialog;
 import info.liruqi.bjhouse.fragment.HomeFragment.MyGridAdapter;
 import info.liruqi.bjhouse.fragment.HomeFragment.MyViewAdapter;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,10 +37,11 @@ public class FamilyFragment extends Fragment {
 	private GridView gv;
 	private final int[] srcId = { R.drawable.e, R.drawable.f, R.drawable.g,
 			R.drawable.h, };
-	private final int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,R.drawable.p8, };
-	private final String[] iconTopic = { "交通", "公共", "市政" ,"休闲" };
-	private final String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站",
-			"附近有餐厅", "附近有好友", "附近有购物中心，附近有学校" };
+	private final int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,
+			R.drawable.p8, R.drawable.addfunc };
+	private final String[] iconTopic = { "视频电话", "自助缴费", "快递柜", "活动报名", "添加" };
+	private final String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
+			"附近有好友", "附近有购物中心，附近有学校" };
 	private View view;
 	private LinearLayout ll_vp;
 	private ImageView iv_circle;
@@ -59,13 +61,16 @@ public class FamilyFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = View.inflate(getActivity(), R.layout.layout_familyfragment, null);
+		view = View.inflate(getActivity(), R.layout.other_fragment, null);
 		initData();
 		initUI();
 		return view;
 	}
 
 	private void initData() {
+		TextView tv_middle_titlebar = (TextView) view
+				.findViewById(R.id.tv_middle_titlebar);
+		tv_middle_titlebar.setText("家庭");
 		vp = (ViewPager) view.findViewById(R.id.vp);
 		gv = (GridView) view.findViewById(R.id.gv);
 		gv.setOnItemClickListener(new OnItemClickListener() {
@@ -74,12 +79,12 @@ public class FamilyFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View args1,
 					int position, long arg3) {
 
-					Intent intent = new Intent(getActivity(),
-							OtherItemsActivity.class);
-					intent.putExtra("text", ((TextView) args1
-							.findViewById(R.id.tv_gv)).getText());
-					startActivity(intent);
-				}
+				Intent intent = new Intent(getActivity(),
+						OtherItemsActivity.class);
+				intent.putExtra("text",
+						((TextView) args1.findViewById(R.id.tv_gv)).getText());
+				startActivity(intent);
+			}
 		});
 		gv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -87,8 +92,9 @@ public class FamilyFragment extends Fragment {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
-				//Toast.makeText(getActivity(), "长按", 0).show();
-				getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_main, new HomeFragment()).commit();
+				// Toast.makeText(getActivity(), "长按", 0).show();
+				getActivity().getSupportFragmentManager().beginTransaction()
+						.replace(R.id.fl_main, new HomeFragment()).commit();
 				MainActivity.srcIdSelected = gridId[position];
 				MainActivity.iconTopicSelected = iconTopic[position];
 				return false;
@@ -141,7 +147,23 @@ public class FamilyFragment extends Fragment {
 	}
 
 	private void initUI() {
-		// TODO Auto-generated method stub
+		ImageView iv_middle_titlebar = (ImageView) view
+				.findViewById(R.id.iv_middle_titlebar);
+		iv_middle_titlebar.setVisibility(View.VISIBLE);
+		iv_middle_titlebar.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				new AlertDialog.Builder(getActivity())
+						.setTitle("功能管理")
+						.setMultiChoiceItems(
+								new String[] { "视频电话", "自助缴费", "快递柜", "活动报名",
+										"待办事项", "场地预约", "投票调查" }, null, null)
+						.setPositiveButton("确定", null)
+						.setNegativeButton("取消", null).show();
+			}
+		});
 
 		setViewPager();
 		setGridView();
