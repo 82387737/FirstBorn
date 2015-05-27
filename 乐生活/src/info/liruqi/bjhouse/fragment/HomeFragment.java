@@ -102,11 +102,9 @@ public class HomeFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setAction(Intent.ACTION_CALL);
-				intent.setData(Uri.parse("tel:18010092675"));
-				// activity的跳转
-				startActivity(intent);
+				new AlertDialog.Builder(getActivity()).setView(
+						View.inflate(getActivity(),
+								R.layout.alert_repair_layout, null)).show();
 			}
 		});
 		ImageView iv_arrow_left = (ImageView) view
@@ -126,16 +124,22 @@ public class HomeFragment extends Fragment {
 
 			}
 		});
-		ImageView iv_middle_titlebar = (ImageView) view.findViewById(R.id.iv_middle_titlebar);
+		ImageView iv_middle_titlebar = (ImageView) view
+				.findViewById(R.id.iv_middle_titlebar);
 		iv_middle_titlebar.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-			new AlertDialog.Builder(getActivity()).setTitle("功能管理").setMultiChoiceItems(new String[]{"WIFI","周边商户","访问管理","停车","日程管理","餐厅状态"}, null, null).show();
+				new AlertDialog.Builder(getActivity())
+						.setTitle("功能管理")
+						.setView(view)
+						.setMultiChoiceItems(
+								new String[] { "WIFI", "周边商户", "访问管理", "停车",
+										"日程管理", "餐厅状态" }, null, null).show();
 			}
 		});
-		
+
 		ImageView iv_arrow_right = (ImageView) view
 				.findViewById(R.id.iv_arrow_right);
 		iv_arrow_right.setOnClickListener(new OnClickListener() {

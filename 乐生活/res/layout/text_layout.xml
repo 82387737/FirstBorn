@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/ll_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="#666666"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/iv_left_titlebar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:id="@+id/tv_middle_titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:text="报修"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_middle_titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_middle_titlebar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/jiantou1_disable"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_right_titlebar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/commit" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_titlebar"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:text="问题描述" />
+
+    <EditText
+        android:id="@+id/et_des"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/tv_first"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_bg"
+        android:paddingLeft="5dp" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/tv_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_des"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:text="图片说明" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/tv_second"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/add" />
+
+</RelativeLayout>
