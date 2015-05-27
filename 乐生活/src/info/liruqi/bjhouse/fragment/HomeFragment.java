@@ -5,6 +5,7 @@ import info.liruqi.bjhouse.R;
 import info.liruqi.bjhouse.activity.ItemActivity;
 import info.liruqi.bjhouse.activity.OtherItemsActivity;
 import info.liruqi.bjhouse.customcomponent.MyDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -124,6 +126,16 @@ public class HomeFragment extends Fragment {
 
 			}
 		});
+		ImageView iv_middle_titlebar = (ImageView) view.findViewById(R.id.iv_middle_titlebar);
+		iv_middle_titlebar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			new AlertDialog.Builder(getActivity()).setTitle("功能管理").setMultiChoiceItems(new String[]{"WIFI","周边商户","访问管理","停车","日程管理","餐厅状态"}, null, null).show();
+			}
+		});
+		
 		ImageView iv_arrow_right = (ImageView) view
 				.findViewById(R.id.iv_arrow_right);
 		iv_arrow_right.setOnClickListener(new OnClickListener() {

@@ -41,7 +41,7 @@
                     android:id="@+id/iv_family"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/family" />
+                    android:background="@drawable/family_nomal" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                     android:id="@+id/iv_work"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/work" />
+                    android:background="@drawable/work_nomal" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
                     android:id="@+id/iv_home"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/home" />
+                    android:background="@drawable/home_pressed" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
                     android:id="@+id/iv_entertainment"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/entertain" />
+                    android:background="@drawable/entertain_nomal" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -133,7 +133,7 @@
                     android:id="@+id/iv_me"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/me" />
+                    android:background="@drawable/me_nomal" />
 
                 <TextView
                     android:layout_width="wrap_content"
