@@ -41,6 +41,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public static int srcIdSelected = -1;
 	public static String iconTopicSelected = null;
 	public static int[] buttons = { 0, 0, 0, 0, 0 };
+	public static int currentPosition =-1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			animation.setRepeatCount(0);
 			// animation.cancel();
 			animation = null;
-			EntertainmentFragment.intGridIcon();
+			if(currentPosition == 0){FamilyFragment.intGridIcon();}
+			else if(currentPosition == 1){WorkFragment.intGridIcon();}
+			else if(currentPosition == 2){HomeFragment.intGridIcon();}
+			else if(currentPosition == 3){EntertainmentFragment.intGridIcon();EntertainmentFragment.deleteOpen = false;}
+			else if(currentPosition == 4){MeFragment.intGridIcon();}
+			
 		} else {
 			super.onBackPressed();
 		}
@@ -150,23 +156,28 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.ll_menu1:
 			setButtonChecked(0);
+			currentPosition =0;
 			startFragment(new FamilyFragment());
 			break;
 		case R.id.ll_menu2:
 			setButtonChecked(1);
+			currentPosition =1;
 			startFragment(new WorkFragment());
 			break;
 		case R.id.ll_menu3:
 			setButtonChecked(2);
+			currentPosition =2;
 			startFragment(new HomeFragment());
 
 			break;
 		case R.id.ll_menu4:
 			setButtonChecked(3);
+			currentPosition =3;
 			startFragment(new EntertainmentFragment());
 			break;
 		case R.id.ll_menu5:
 			setButtonChecked(4);
+			currentPosition =4;
 			startFragment(new MeFragment());
 			break;
 

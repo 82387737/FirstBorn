@@ -1,5 +1,8 @@
 package info.liruqi.bjhouse.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import info.liruqi.bjhouse.MainActivity;
 import info.liruqi.bjhouse.R;
 import info.liruqi.bjhouse.activity.ItemActivity;
@@ -19,10 +22,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -38,12 +43,13 @@ public class HomeFragment extends Fragment {
 	private GridView gv;
 	private static int[] srcId = { R.drawable.a, R.drawable.b, R.drawable.c,
 			R.drawable.d, };
-	private static int[] gridId = { R.drawable.p1, R.drawable.p2, R.drawable.p3,
-			R.drawable.p4 };
+	private static int[] gridId = { R.drawable.p1, R.drawable.p2,
+			R.drawable.p3, R.drawable.p4 };
 	private static String[] iconTopic = { "WIFI", "周边商户", "访问管理", "停车" };
 	private static String[] textOfRain = { "很久以前下过雨", "前些天下过一场雨", "今天下雨了",
 			"明天要下雨", "未来几天皆是有雨的", "连绵之雨，不知道要下多久" };
 	private View view;
+	public static List<View> gridList = new ArrayList<View>();
 	private LinearLayout ll_vp;
 	private ImageView iv_circle;
 	Handler handler = new Handler() {
@@ -135,7 +141,7 @@ public class HomeFragment extends Fragment {
 				new AlertDialog.Builder(getActivity())
 						.setTitle("功能管理")
 						.setMultiChoiceItems(
-								new String[] { "WIFI", "周边商户", "访问管理", "停车",
+								new String[] { "WIFI", "周边", "管理", "停车",
 										"日程管理", "餐厅状态" }, null, null)
 						.setPositiveButton("确定", null)
 						.setNegativeButton("取消", null).show();
@@ -159,13 +165,46 @@ public class HomeFragment extends Fragment {
 
 			}
 		});
+		gv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			private ImageView iv_delete_icon;
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0,
+					final View arg1, int position, long arg3) {
+				// TODO Auto-generated method stub
+				// new MainActivity().setButtonChecked(3);
+				// ImageView iv_delete_icon = (ImageView)
+				// gv.findViewById(R.id.iv_delete_icon);
+				// iv_delete_icon.setVisibility(View.VISIBLE);
+				MainActivity.animation = AnimationUtils.loadAnimation(
+						getActivity(), R.anim.rotate);
+				// arg1.startAnimation(animation);
+				for (View view : gridList) {
+					iv_delete_icon = (ImageView) view
+							.findViewById(R.id.iv_delete_icon);
+					iv_delete_icon.setVisibility(View.VISIBLE);
+					view.startAnimation(MainActivity.animation);
+				}
+				return true;
+			}
+		});
 	}
 
 	private void initUI() {
 		// TODO Auto-generated method stub
-
+		intGridIcon();
 		setViewPager();
 		setGridView();
+	}
+
+	public static void intGridIcon() {
+		// TODO Auto-generated method stub
+		for (View view : gridList) {
+			ImageView iv_delete_icon = (ImageView) view
+					.findViewById(R.id.iv_delete_icon);
+			iv_delete_icon.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	private void setViewPager() {

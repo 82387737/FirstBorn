@@ -39,13 +39,14 @@ public class EntertainmentFragment extends Fragment {
 	private int lastPosition = 0;
 	private int textPosition = 3;
 	private ViewPager vp;
+	public static boolean deleteOpen = false;
 	private GridView gv;
 	private static int[] srcId = { R.drawable.i, R.drawable.j, R.drawable.k,
 			R.drawable.l, };
-	private static int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,
-			R.drawable.p8, R.drawable.addfunc };
-	private static String[] iconTopic = { "打折促销", "餐厅等位", "票务销售", "商户列表", "添加" };
-	private	static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
+	private static int[] gridId = { R.drawable.p5, R.drawable.p6,
+			R.drawable.p7, R.drawable.p8, R.drawable.addfunc };
+	private static String[] iconTopic = { "打折", "餐厅", "票务", "商户", "添加" };
+	private static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
 			"附近有好友", "附近有购物中心，附近有学校" };
 	private View view;
 	public static List<View> gridList = new ArrayList<View>();
@@ -63,6 +64,8 @@ public class EntertainmentFragment extends Fragment {
 		}
 	};
 	private TextView tv_arrow_middle;
+	private List<String> iconTopicList;
+	private List<Integer> gridIdList;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,44 +77,63 @@ public class EntertainmentFragment extends Fragment {
 	}
 
 	private void initData() {
+		gridIdList = new ArrayList<Integer>();
+		for(int id:gridId){
+			gridIdList.add(id);
+		}
+		iconTopicList = new ArrayList<String>();
+		for(String topic:iconTopic){
+			iconTopicList.add(topic);
+		}
+		
 		TextView tv_middle_titlebar = (TextView) view
 				.findViewById(R.id.tv_middle_titlebar);
 		tv_middle_titlebar.setText("休闲");
 		vp = (ViewPager) view.findViewById(R.id.vp);
 		gv = (GridView) view.findViewById(R.id.gv);
+		//gv.removeViewAt(index)
 		gv.setOnItemClickListener(new OnItemClickListener() {
-
+		
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View args1,
 					int position, long arg3) {
-
+				if(deleteOpen){
+					gridIdList.remove(position);
+					iconTopicList.remove(position);
+					setGridView();
+					MainActivity.animation.setRepeatCount(0);
+					MainActivity.animation = null;
+					
+				}else{
 				Intent intent = new Intent(getActivity(),
 						OtherItemsActivity.class);
 				intent.putExtra("text",
 						((TextView) args1.findViewById(R.id.tv_gv)).getText());
-				startActivity(intent);
+				startActivity(intent);}
 			}
 		});
 		gv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-			
-
 			private ImageView iv_delete_icon;
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, final View arg1,
-					int position, long arg3) {
+			public boolean onItemLongClick(AdapterView<?> arg0,
+					final View arg1, int position, long arg3) {
 				// TODO Auto-generated method stub
-			    //new MainActivity().setButtonChecked(3);
-				//ImageView iv_delete_icon = (ImageView) gv.findViewById(R.id.iv_delete_icon);
-				//iv_delete_icon.setVisibility(View.VISIBLE);
-                MainActivity.animation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);  
-               // arg1.startAnimation(animation);  
-                for(View view:gridList){
-                	iv_delete_icon = (ImageView) view.findViewById(R.id.iv_delete_icon);
-                	iv_delete_icon.setVisibility(View.VISIBLE);
-                	view.startAnimation(MainActivity.animation);
-                }
+				// new MainActivity().setButtonChecked(3);
+				// ImageView iv_delete_icon = (ImageView)
+				// gv.findViewById(R.id.iv_delete_icon);
+				// iv_delete_icon.setVisibility(View.VISIBLE);
+				MainActivity.animation = AnimationUtils.loadAnimation(
+						getActivity(), R.anim.rotate);
+				deleteOpen = true;
+				// arg1.startAnimation(animation);
+				for (View view : gridList) {
+					iv_delete_icon = (ImageView) view
+							.findViewById(R.id.iv_delete_icon);
+					iv_delete_icon.setVisibility(View.VISIBLE);
+					view.startAnimation(MainActivity.animation);
+				}
 				return true;
 			}
 		});
@@ -173,7 +195,7 @@ public class EntertainmentFragment extends Fragment {
 				new AlertDialog.Builder(getActivity())
 						.setTitle("功能管理")
 						.setMultiChoiceItems(
-								new String[] { "打着促销", "餐厅等位", "票务销售", "商户列表",
+								new String[] { "促销", "餐厅等位", "票务销售", "商户列表",
 										"抢购预约", "赠品领取" }, null, null)
 						.setPositiveButton("确定", null)
 						.setNegativeButton("取消", null).show();
@@ -186,8 +208,9 @@ public class EntertainmentFragment extends Fragment {
 
 	public static void intGridIcon() {
 		// TODO Auto-generated method stub
-		for(View view :gridList){
-			ImageView iv_delete_icon =  (ImageView) view.findViewById(R.id.iv_delete_icon);
+		for (View view : gridList) {
+			ImageView iv_delete_icon = (ImageView) view
+					.findViewById(R.id.iv_delete_icon);
 			iv_delete_icon.setVisibility(View.INVISIBLE);
 		}
 	}
@@ -275,7 +298,7 @@ public class EntertainmentFragment extends Fragment {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return gridId.length;
+			return gridIdList.size();
 		}
 
 		@Override
@@ -292,12 +315,12 @@ public class EntertainmentFragment extends Fragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = View.inflate(getActivity(), R.layout.grid_item,
-					null);
+			View view = View.inflate(getActivity(), R.layout.grid_item, null);
 			ImageView iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			TextView tv_gv = (TextView) view.findViewById(R.id.tv_gv);
-			iv_gv.setBackgroundResource(gridId[position]);
-			tv_gv.setText(iconTopic[position]);
+			ImageView iv_delete_icon = (ImageView) view.findViewById(R.id.iv_delete_icon);
+			iv_gv.setBackgroundResource(gridIdList.get(position));
+			tv_gv.setText(iconTopicList.get(position));
 			gridList.add(view);
 			return view;
 		}
