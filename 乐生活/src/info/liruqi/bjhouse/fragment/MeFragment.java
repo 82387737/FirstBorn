@@ -203,8 +203,8 @@ public class MeFragment extends Fragment {
 			}
 			// ll是可见的，那么ll的子节点也会显示在界面上
 			ll_vp.addView(iv_circle);
-			handler.sendEmptyMessageDelayed(0, 2000);
 		}
+		handler.sendEmptyMessageDelayed(0, 2000);
 	}
 
 	private void setGridView() {
