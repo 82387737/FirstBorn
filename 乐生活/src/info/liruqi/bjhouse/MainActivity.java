@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -32,11 +33,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
-	   
-    private SensorManager sensorManager;   
-    private static final String TAG = "TestSensorActivity";   
-    private static final int SENSOR_SHAKE = 10;   
-   
+	private static MyDialog dialog = null;
+	private SensorManager sensorManager;
+	private static final String TAG = "TestSensorActivity";
+	private static final int SENSOR_SHAKE = 10;
+	public static Animation animation = null;
 	public static int srcIdSelected = -1;
 	public static String iconTopicSelected = null;
 	public static int[] buttons = { 0, 0, 0, 0, 0 };
@@ -47,69 +48,102 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		startFragment(new HomeFragment());
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);  
+		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+		Log.i("ola", "alala,nene,sabixi");
 	}
-    @Override   
-    protected void onResume() {   
-        super.onResume();   
-        if (sensorManager != null) {// 注册监听器   
-            sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);   
-            // 第一个参数是Listener，第二个参数是所得传感器类型，第三个参数值获取传感器信息的频率   
-        }   
-    }   
-   
-    @Override   
-    protected void onStop() {   
-        super.onStop();   
-        if (sensorManager != null) {// 取消监听器   
-            sensorManager.unregisterListener(sensorEventListener);   
-        }   
-    }  
-    /** 
-     * 重力感应监听 
-     */   
-    private SensorEventListener sensorEventListener = new SensorEventListener() {   
-   
-        @Override
-        public void onSensorChanged(SensorEvent event) {   
-            // 传感器信息改变时执行该方法   
-            float[] values = event.values;   
-            float x = values[0]; // x轴方向的重力加速度，向右为正   
-            float y = values[1]; // y轴方向的重力加速度，向前为正   
-            float z = values[2]; // z轴方向的重力加速度，向上为正   
-            Log.i(TAG, "x轴方向的重力加速度" + x +  "；y轴方向的重力加速度" + y +  "；z轴方向的重力加速度" + z);   
-            // 一般在这三个方向的重力加速度达到40就达到了摇晃手机的状态。   
-            int medumValue = 10;// 如果不敏感请自行调低该数值,低于10的话就不行了,因为z轴上的加速度本身就已经达到10了                
-        if (Math.abs(x) > medumValue || Math.abs(y) > medumValue || Math.abs(z) > medumValue) {   
-                Message msg = new Message();   
-                msg.what = SENSOR_SHAKE;   
-                handler.sendMessage(msg);   
-            }   
-        }   
-   
-        @Override 
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {   
-   
-        }   
-    };   
-   
-    /** 
-     * 动作执行 
-     */   
-    Handler handler = new Handler() {   
-   
-        @Override   
-        public void handleMessage(Message msg) {   
-            super.handleMessage(msg);   
-            switch (msg.what) {   
-            case SENSOR_SHAKE:   
-    			new MyDialog(MainActivity.this).showDialog(R.layout.erweima_dialog,
-						-50, -100); 
-                break;   
-            }   
-        }   
-   
-    };   
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+
+		if (animation != null) {
+			// animation.getFillBefore();
+			// animation.reset();
+			animation.setRepeatCount(0);
+			// animation.cancel();
+			animation = null;
+			EntertainmentFragment.intGridIcon();
+		} else {
+			super.onBackPressed();
+		}
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (sensorManager != null) {// 注册监听器
+			sensorManager.registerListener(sensorEventListener,
+					sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+					SensorManager.SENSOR_DELAY_NORMAL);
+			// 第一个参数是Listener，第二个参数是所得传感器类型，第三个参数值获取传感器信息的频率
+		}
+		dialog = null;
+	}
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+	Log.i("ano", "dialog可以让我失去焦点吗？");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (sensorManager != null) {// 取消监听器
+			sensorManager.unregisterListener(sensorEventListener);
+		}
+	}
+
+	/**
+	 * 重力感应监听
+	 */
+	private SensorEventListener sensorEventListener = new SensorEventListener() {
+
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			// 传感器信息改变时执行该方法
+			float[] values = event.values;
+			float x = values[0]; // x轴方向的重力加速度，向右为正
+			float y = values[1]; // y轴方向的重力加速度，向前为正
+			float z = values[2]; // z轴方向的重力加速度，向上为正
+			Log.i(TAG, "x轴方向的重力加速度" + x + "；y轴方向的重力加速度" + y + "；z轴方向的重力加速度" + z);
+			// 一般在这三个方向的重力加速度达到40就达到了摇晃手机的状态。
+			int medumValue = 17;// 如果不敏感请自行调低该数值,低于10的话就不行了,因为z轴上的加速度本身就已经达到10了
+			if (Math.abs(x) > medumValue || Math.abs(y) > medumValue
+					|| Math.abs(z) > medumValue) {
+				Message msg = new Message();
+				msg.what = SENSOR_SHAKE;
+				handler.sendMessage(msg);
+			}
+		}
+
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+		}
+	};
+
+	/**
+	 * 动作执行
+	 */
+
+	Handler handler = new Handler() {
+
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case SENSOR_SHAKE:
+				if (dialog == null) {
+					dialog = new MyDialog(MainActivity.this);
+					dialog.showDialog(R.layout.erweima_dialog, -50, -100);
+				}
+				break;
+			}
+		}
+
+	};
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -144,7 +178,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.fl_main, fragment).commit();
 	}
-	
+
 	public void setButtonChecked(int Position) {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = 0;

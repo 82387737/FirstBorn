@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <ImageView
+        android:id="@+id/iv_gv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/p1" />
+    <ImageView
+        android:id="@+id/iv_delete_icon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:clickable="true"
+        android:background="@drawable/stop"
+        android:visibility="invisible" />
+    
+    <TextView
+        android:layout_below="@id/iv_gv"
+        android:id="@+id/tv_gv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:gravity="center"
+        android:layout_alignLeft="@id/iv_gv"
+        android:layout_alignRight="@id/iv_gv"
+        android:text="测试"
+         />
+
+</RelativeLayout>

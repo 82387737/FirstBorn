@@ -35,12 +35,12 @@ public class FamilyFragment extends Fragment {
 	private int textPosition = 3;
 	private ViewPager vp;
 	private GridView gv;
-	private final int[] srcId = { R.drawable.e, R.drawable.f, R.drawable.g,
+	private static int[] srcId = { R.drawable.e, R.drawable.f, R.drawable.g,
 			R.drawable.h, };
-	private final int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,
+	private static int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,
 			R.drawable.p8, R.drawable.addfunc };
-	private final String[] iconTopic = { "视频电话", "自助缴费", "快递柜", "活动报名", "添加" };
-	private final String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
+	private static String[] iconTopic = { "视频电话", "自助缴费", "快递柜", "活动报名", "添加" };
+	private static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
 			"附近有好友", "附近有购物中心，附近有学校" };
 	private View view;
 	private LinearLayout ll_vp;

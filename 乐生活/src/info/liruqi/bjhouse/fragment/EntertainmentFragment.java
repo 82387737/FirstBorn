@@ -1,5 +1,8 @@
 package info.liruqi.bjhouse.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import info.liruqi.bjhouse.MainActivity;
 import info.liruqi.bjhouse.R;
 import info.liruqi.bjhouse.activity.OtherItemsActivity;
@@ -15,10 +18,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -34,14 +40,15 @@ public class EntertainmentFragment extends Fragment {
 	private int textPosition = 3;
 	private ViewPager vp;
 	private GridView gv;
-	private final int[] srcId = { R.drawable.i, R.drawable.j, R.drawable.k,
+	private static int[] srcId = { R.drawable.i, R.drawable.j, R.drawable.k,
 			R.drawable.l, };
-	private final int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,
+	private static int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,
 			R.drawable.p8, R.drawable.addfunc };
-	private final String[] iconTopic = { "打折促销", "餐厅等位", "票务销售", "商户列表", "添加" };
-	private final String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
+	private static String[] iconTopic = { "打折促销", "餐厅等位", "票务销售", "商户列表", "添加" };
+	private	static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
 			"附近有好友", "附近有购物中心，附近有学校" };
 	private View view;
+	public static List<View> gridList = new ArrayList<View>();
 	private LinearLayout ll_vp;
 	private ImageView iv_circle;
 	Handler handler = new Handler() {
@@ -87,20 +94,25 @@ public class EntertainmentFragment extends Fragment {
 		});
 		gv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
+			
+
+			private ImageView iv_delete_icon;
+
 			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+			public boolean onItemLongClick(AdapterView<?> arg0, final View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
 			    //new MainActivity().setButtonChecked(3);
-				Vibrator v = (Vibrator)getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
-				long[] pattern = { 200, 1000};
-                v.vibrate(pattern, -1);
-				getActivity().getSupportFragmentManager().beginTransaction()
-						.replace(R.id.fl_main, new HomeFragment()).commit();
-				MainActivity.srcIdSelected = gridId[position];
-				MainActivity.iconTopicSelected = iconTopic[position];
-				
-				return false;
+				//ImageView iv_delete_icon = (ImageView) gv.findViewById(R.id.iv_delete_icon);
+				//iv_delete_icon.setVisibility(View.VISIBLE);
+                MainActivity.animation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);  
+               // arg1.startAnimation(animation);  
+                for(View view:gridList){
+                	iv_delete_icon = (ImageView) view.findViewById(R.id.iv_delete_icon);
+                	iv_delete_icon.setVisibility(View.VISIBLE);
+                	view.startAnimation(MainActivity.animation);
+                }
+				return true;
 			}
 		});
 		ImageView iv_left_titlebar = (ImageView) view
@@ -167,9 +179,17 @@ public class EntertainmentFragment extends Fragment {
 						.setNegativeButton("取消", null).show();
 			}
 		});
-
+		intGridIcon();
 		setViewPager();
 		setGridView();
+	}
+
+	public static void intGridIcon() {
+		// TODO Auto-generated method stub
+		for(View view :gridList){
+			ImageView iv_delete_icon =  (ImageView) view.findViewById(R.id.iv_delete_icon);
+			iv_delete_icon.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	private void setViewPager() {
@@ -272,12 +292,13 @@ public class EntertainmentFragment extends Fragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = View.inflate(getActivity(), R.layout.item_gridview,
+			View view = View.inflate(getActivity(), R.layout.grid_item,
 					null);
 			ImageView iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			TextView tv_gv = (TextView) view.findViewById(R.id.tv_gv);
 			iv_gv.setBackgroundResource(gridId[position]);
 			tv_gv.setText(iconTopic[position]);
+			gridList.add(view);
 			return view;
 		}
 

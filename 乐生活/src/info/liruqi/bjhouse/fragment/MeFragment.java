@@ -33,10 +33,10 @@ public class MeFragment extends Fragment {
 	private int textPosition = 3;
 	private ViewPager vp;
 	private GridView gv;
-	private final int[] srcId = { R.drawable.q};
-	private final int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,R.drawable.p8,R.drawable.addfunc };
-	private final String[] iconTopic = { "个人信息", "地址管理", "名片管理", "电子钱包","添加" };
-	private final String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站",
+	private static int[] srcId = { R.drawable.q};
+	private static int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,R.drawable.p8,R.drawable.addfunc };
+	private static String[] iconTopic = { "个人信息", "地址管理", "名片管理", "电子钱包","添加" };
+	private static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站",
 			"附近有餐厅", "附近有好友", "附近有购物中心，附近有学校" };
 	private View view;
 	private LinearLayout ll_vp;
