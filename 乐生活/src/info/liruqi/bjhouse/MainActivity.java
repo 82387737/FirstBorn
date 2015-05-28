@@ -8,12 +8,13 @@ import info.liruqi.bjhouse.fragment.MeFragment;
 import info.liruqi.bjhouse.fragment.WorkFragment;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -28,8 +29,14 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity implements OnClickListener,SensorEventListener {
+public class MainActivity extends FragmentActivity implements OnClickListener {
+	   
+    private SensorManager sensorManager;   
+    private static final String TAG = "TestSensorActivity";   
+    private static final int SENSOR_SHAKE = 10;   
+   
 	public static int srcIdSelected = -1;
 	public static String iconTopicSelected = null;
 	public static int[] buttons = { 0, 0, 0, 0, 0 };
@@ -39,22 +46,70 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Se
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		context = this;
-		start();
 		startFragment(new HomeFragment());
-	    MainActivity shakeListener = new MainActivity();//创建一个对象  
-	    shakeListener.setOnShakeListener(new OnShakeListener(){//调用setOnShakeListener方法进行监听  
-	      
-	    public void onShake() {  
-	        //对手机摇晃后的处理（如换歌曲，换图片，震动……）  
-	        //onVibrator(); 
-			new MyDialog(MainActivity.this).showDialog(R.layout.erweima_dialog,
-					-50, -100);
-	    }  
-	      
-	    });  
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);  
 	}
-
+    @Override   
+    protected void onResume() {   
+        super.onResume();   
+        if (sensorManager != null) {// 注册监听器   
+            sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);   
+            // 第一个参数是Listener，第二个参数是所得传感器类型，第三个参数值获取传感器信息的频率   
+        }   
+    }   
+   
+    @Override   
+    protected void onStop() {   
+        super.onStop();   
+        if (sensorManager != null) {// 取消监听器   
+            sensorManager.unregisterListener(sensorEventListener);   
+        }   
+    }  
+    /** 
+     * 重力感应监听 
+     */   
+    private SensorEventListener sensorEventListener = new SensorEventListener() {   
+   
+        @Override
+        public void onSensorChanged(SensorEvent event) {   
+            // 传感器信息改变时执行该方法   
+            float[] values = event.values;   
+            float x = values[0]; // x轴方向的重力加速度，向右为正   
+            float y = values[1]; // y轴方向的重力加速度，向前为正   
+            float z = values[2]; // z轴方向的重力加速度，向上为正   
+            Log.i(TAG, "x轴方向的重力加速度" + x +  "；y轴方向的重力加速度" + y +  "；z轴方向的重力加速度" + z);   
+            // 一般在这三个方向的重力加速度达到40就达到了摇晃手机的状态。   
+            int medumValue = 10;// 如果不敏感请自行调低该数值,低于10的话就不行了,因为z轴上的加速度本身就已经达到10了                
+        if (Math.abs(x) > medumValue || Math.abs(y) > medumValue || Math.abs(z) > medumValue) {   
+                Message msg = new Message();   
+                msg.what = SENSOR_SHAKE;   
+                handler.sendMessage(msg);   
+            }   
+        }   
+   
+        @Override 
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {   
+   
+        }   
+    };   
+   
+    /** 
+     * 动作执行 
+     */   
+    Handler handler = new Handler() {   
+   
+        @Override   
+        public void handleMessage(Message msg) {   
+            super.handleMessage(msg);   
+            switch (msg.what) {   
+            case SENSOR_SHAKE:   
+    			new MyDialog(MainActivity.this).showDialog(R.layout.erweima_dialog,
+						-50, -100); 
+                break;   
+            }   
+        }   
+   
+    };   
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -89,7 +144,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Se
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.fl_main, fragment).commit();
 	}
-
+	
 	public void setButtonChecked(int Position) {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = 0;
@@ -133,96 +188,4 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Se
 			}
 		}
 	}
-	 //速度阈值，当摇晃速度达到这值后产生作用  
-	 private static final int SPEED_SHRESHOLD = 4000;  
-	 //两次检测的时间间隔  
-	 private static final int UPTATE_INTERVAL_TIME = 70;  
-	   
-	 //传感器管理器  
-	 private SensorManager sensorManager;  
-	 //传感器  
-	 private Sensor sensor;  
-	 //重力感应监听器  
-	 private OnShakeListener onShakeListener;  
-	 //上下文  
-	 private static Context context;  
-	 //手机上一个位置时重力感应坐标  
-	 private float lastX;  
-	 private float lastY;  
-	 private float lastZ;  
-	   
-	 //上次检测时间  
-	 private long lastUpdateTime;  
-	  
-	 //构造器  
-	   
-	 //开始  
-	 public void start() {  
-	  //获得传感器管理器  
-	  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);   
-	  if(sensorManager != null) {  
-	   //获得重力传感器  
-	   sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);  
-	  }  
-	  //注册  
-	  if(sensor != null) {  
-	   sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);  
-	  }  
-	    
-	 }  
-	   
-	 //停止检测  
-	 public void stop() {  
-	  sensorManager.unregisterListener(this);  
-	 }  
-	   
-	 //摇晃监听接口  
-	 public interface OnShakeListener {  
-	  public void onShake();  
-	 }  
-	   
-	 //设置重力感应监听器  
-	 public void setOnShakeListener(OnShakeListener listener) {  
-	  onShakeListener = listener;  
-	 }  
-	   
-	   
-	 //重力感应器感应获得变化数据  
-	 @Override
-	 public void onSensorChanged(SensorEvent event) {  
-	  //现在检测时间  
-	  long currentUpdateTime = System.currentTimeMillis();  
-	  //两次检测的时间间隔  
-	  long timeInterval = currentUpdateTime - lastUpdateTime;    
-	  //判断是否达到了检测时间间隔  
-	  if(timeInterval < UPTATE_INTERVAL_TIME)   
-	   return;  
-	  //现在的时间变成last时间  
-	  lastUpdateTime = currentUpdateTime;  
-	    
-	  //获得x,y,z坐标  
-	  float x = event.values[0];  
-	  float y = event.values[1];  
-	  float z = event.values[2];  
-	    
-	  //获得x,y,z的变化值  
-	  float deltaX = x - lastX;  
-	  float deltaY = y - lastY;  
-	  float deltaZ = z - lastZ;  
-	    
-	  //将现在的坐标变成last坐标  
-	  lastX = x;  
-	  lastY = y;  
-	  lastZ = z;  
-	    
-	  double speed = Math.sqrt(deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ)/timeInterval * 10000;  
-	  //达到速度阀值，发出提示  
-	  if(speed >= SPEED_SHRESHOLD)  
-	   onShakeListener.onShake();  
-	 }  
-	@Override   
-	 public void onAccuracyChanged(Sensor sensor, int accuracy) {  
-	    
-	 }  
-
 }

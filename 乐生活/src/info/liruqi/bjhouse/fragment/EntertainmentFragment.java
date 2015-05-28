@@ -38,7 +38,7 @@ public class EntertainmentFragment extends Fragment {
 			R.drawable.l, };
 	private final int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,
 			R.drawable.p8, R.drawable.addfunc };
-	private final String[] iconTopic = { "打着促销", "餐厅等位", "票务销售", "商户列表", "添加" };
+	private final String[] iconTopic = { "打折促销", "餐厅等位", "票务销售", "商户列表", "添加" };
 	private final String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
 			"附近有好友", "附近有购物中心，附近有学校" };
 	private View view;
@@ -91,14 +91,15 @@ public class EntertainmentFragment extends Fragment {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
+			    //new MainActivity().setButtonChecked(3);
 				Vibrator v = (Vibrator)getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
-				long[] pattern = { 200, 2000, 2000, 200, 200, 200 };
+				long[] pattern = { 200, 1000};
                 v.vibrate(pattern, -1);
-				
 				getActivity().getSupportFragmentManager().beginTransaction()
 						.replace(R.id.fl_main, new HomeFragment()).commit();
 				MainActivity.srcIdSelected = gridId[position];
 				MainActivity.iconTopicSelected = iconTopic[position];
+				
 				return false;
 			}
 		});
