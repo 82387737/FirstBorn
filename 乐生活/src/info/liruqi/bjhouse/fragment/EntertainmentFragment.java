@@ -20,7 +20,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -91,7 +93,7 @@ public class EntertainmentFragment extends Fragment {
 		tv_middle_titlebar.setText("休闲");
 		vp = (ViewPager) view.findViewById(R.id.vp);
 		gv = (GridView) view.findViewById(R.id.gv);
-		//gv.removeViewAt(index)
+		
 		gv.setOnItemClickListener(new OnItemClickListener() {
 		
 			@Override

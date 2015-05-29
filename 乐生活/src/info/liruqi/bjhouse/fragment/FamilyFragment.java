@@ -103,6 +103,8 @@ public class FamilyFragment extends Fragment {
 					setGridView();
 					MainActivity.animation.setRepeatCount(0);
 					MainActivity.animation = null;
+					deleteOpen = false;
+					
 
 				} else {
 					Intent intent = new Intent(getActivity(),

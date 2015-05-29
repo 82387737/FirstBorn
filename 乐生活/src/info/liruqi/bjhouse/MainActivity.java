@@ -82,13 +82,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					SensorManager.SENSOR_DELAY_NORMAL);
 			// 第一个参数是Listener，第二个参数是所得传感器类型，第三个参数值获取传感器信息的频率
 		}
-		dialog = null;
 	}
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-	Log.i("ano", "dialog可以让我失去焦点吗？");
 	}
 
 	@Override
@@ -140,10 +138,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case SENSOR_SHAKE:
-				if (dialog == null) {
 					dialog = new MyDialog(MainActivity.this);
 					dialog.showDialog(R.layout.erweima_dialog, -50, -100);
-				}
 				break;
 			}
 		}
