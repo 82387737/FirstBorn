@@ -4,8 +4,6 @@ import info.liruqi.bjhouse.MainActivity;
 import info.liruqi.bjhouse.R;
 import info.liruqi.bjhouse.activity.OtherItemsActivity;
 import info.liruqi.bjhouse.customcomponent.MyDialog;
-import info.liruqi.bjhouse.fragment.EntertainmentFragment.MyGridAdapter;
-import info.liruqi.bjhouse.fragment.EntertainmentFragment.MyViewAdapter;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -263,7 +261,7 @@ public class WorkFragment extends Fragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = View.inflate(getActivity(), R.layout.item_gridview,
+			View view = View.inflate(getActivity(), R.layout.grid_item,
 					null);
 			ImageView iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			TextView tv_gv = (TextView) view.findViewById(R.id.tv_gv);

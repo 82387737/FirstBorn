@@ -1,5 +1,9 @@
 package info.liruqi.bjhouse.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import info.liruqi.bjhouse.EntryModel;
 import info.liruqi.bjhouse.MainActivity;
 import info.liruqi.bjhouse.R;
 import info.liruqi.bjhouse.activity.ItemActivity;
@@ -7,8 +11,6 @@ import info.liruqi.bjhouse.activity.OtherItemsActivity;
 import info.liruqi.bjhouse.customcomponent.MyDialog;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -20,9 +22,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -35,17 +40,17 @@ public class HomeFragment extends Fragment {
 	private int lastPosition = 0;
 	private int textPosition = 3;
 	private ViewPager vp;
-	private GridView gv;
+	private GridView mGridView;
+	private boolean mEditing = false;
 	private static int[] srcId = { R.drawable.a, R.drawable.b, R.drawable.c,
 			R.drawable.d, };
-	private static int[] gridId = { R.drawable.p1, R.drawable.p2, R.drawable.p3,
-			R.drawable.p4 };
-	private static String[] iconTopic = { "WIFI", "周边商户", "访问管理", "停车" };
 	private static String[] textOfRain = { "很久以前下过雨", "前些天下过一场雨", "今天下雨了",
 			"明天要下雨", "未来几天皆是有雨的", "连绵之雨，不知道要下多久" };
 	private View view;
 	private LinearLayout ll_vp;
 	private ImageView iv_circle;
+	List<EntryModel> mEntrys;
+	
 	Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			int index = vp.getCurrentItem();
@@ -70,12 +75,33 @@ public class HomeFragment extends Fragment {
 
 	private void initData() {
 		vp = (ViewPager) view.findViewById(R.id.vp);
-		gv = (GridView) view.findViewById(R.id.gv);
-		gv.setOnItemClickListener(new OnItemClickListener() {
+		mGridView = (GridView) view.findViewById(R.id.gv);
+		final int[] gridId = { R.drawable.p1, R.drawable.p2, R.drawable.p3,
+			R.drawable.p4 };
+		final String[] iconTopic = { "WIFI", "周边", "管理", "停车" };
+
+		mEntrys = new ArrayList<EntryModel>();
+		for (int i=0; i<iconTopic.length; i++) {
+			EntryModel e = new EntryModel();
+			e.resID = gridId[i];
+			e.name = iconTopic[i];
+			mEntrys.add(e);
+		}
+
+		final MyGridAdapter gridAdapter = new MyGridAdapter(); 
+		mGridView.setAdapter(gridAdapter);
+		mGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View args1,
 					int position, long arg3) {
+				if (mEditing) {
+					mEntrys.remove(position);
+					gridAdapter.notifyDataSetChanged();
+					mEditing = false;
+					return;
+				}
+				
 				if (position == 0) {
 					startActivity(new Intent(getActivity(), ItemActivity.class));
 				} else {
@@ -141,7 +167,6 @@ public class HomeFragment extends Fragment {
 						.setNegativeButton("取消", null).show();
 			}
 		});
-
 		ImageView iv_arrow_right = (ImageView) view
 				.findViewById(R.id.iv_arrow_right);
 		iv_arrow_right.setOnClickListener(new OnClickListener() {
@@ -159,13 +184,33 @@ public class HomeFragment extends Fragment {
 
 			}
 		});
+
+		
+		mGridView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			private ImageView iv_delete_icon;
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0,
+					final View arg1, int position, long arg3) {
+				// TODO Auto-generated method stub
+				// new MainActivity().setButtonChecked(3);
+				// ImageView iv_delete_icon = (ImageView)
+				// gv.findViewById(R.id.iv_delete_icon);
+				// iv_delete_icon.setVisibility(View.VISIBLE);
+				// arg1.startAnimation(animation);
+				mEditing = true;
+				
+				gridAdapter.notifyDataSetChanged();
+				return true;
+			}
+		});
 	}
 
 	private void initUI() {
 		// TODO Auto-generated method stub
 
 		setViewPager();
-		setGridView();
 	}
 
 	private void setViewPager() {
@@ -213,9 +258,6 @@ public class HomeFragment extends Fragment {
 		handler.sendEmptyMessageDelayed(0, 2000);
 	}
 
-	private void setGridView() {
-		gv.setAdapter(new MyGridAdapter());
-	}
 
 	class MyViewAdapter extends PagerAdapter {
 
@@ -256,9 +298,9 @@ public class HomeFragment extends Fragment {
 			// TODO Auto-generated method stub
 			if (MainActivity.srcIdSelected != -1
 					&& MainActivity.iconTopicSelected != null) {
-				return gridId.length + 1;
+				return mEntrys.size() + 1;
 			} else {
-				return gridId.length;
+				return mEntrys.size();
 			}
 		}
 
@@ -276,19 +318,26 @@ public class HomeFragment extends Fragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = View.inflate(getActivity(), R.layout.item_gridview,
+			View view = View.inflate(getActivity(), R.layout.grid_item,
 					null);
 			iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			tv_gv = (TextView) view.findViewById(R.id.tv_gv);
-			if (position == gridId.length && MainActivity.srcIdSelected != -1
+			if (position >= mEntrys.size() && MainActivity.srcIdSelected != -1
 					&& MainActivity.iconTopicSelected != null) {
 				iv_gv.setBackgroundResource(MainActivity.srcIdSelected);
 				tv_gv.setText(MainActivity.iconTopicSelected);
 			} else {
-
-				iv_gv.setBackgroundResource(gridId[position]);
-				tv_gv.setText(iconTopic[position]);
-
+				iv_gv.setBackgroundResource(mEntrys.get(position).resID);
+				tv_gv.setText(mEntrys.get(position).name);
+			}
+			
+			if (mEditing) {
+				Animation animation = AnimationUtils.loadAnimation(
+						getActivity(), R.anim.rotate);
+				ImageView iv_delete_icon = (ImageView) view
+						.findViewById(R.id.iv_delete_icon);
+				iv_delete_icon.setVisibility(View.VISIBLE);
+				view.startAnimation(animation);
 			}
 			return view;
 		}

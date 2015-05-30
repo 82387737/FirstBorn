@@ -262,7 +262,7 @@ public class MeFragment extends Fragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = View.inflate(getActivity(), R.layout.item_gridview,
+			View view = View.inflate(getActivity(), R.layout.grid_item,
 					null);
 			ImageView iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			TextView tv_gv = (TextView) view.findViewById(R.id.tv_gv);
@@ -270,7 +270,5 @@ public class MeFragment extends Fragment {
 			tv_gv.setText(iconTopic[position]);
 			return view;
 		}
-
 	}
-
 }
