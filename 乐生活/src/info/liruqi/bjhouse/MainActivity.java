@@ -38,16 +38,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private static final String TAG = "TestSensorActivity";
 	private static final int SENSOR_SHAKE = 10;
 	public static Animation animation = null;
-	public static int srcIdSelected = -1;
-	public static String iconTopicSelected = null;
 	public static int[] buttons = { 0, 0, 0, 0, 0 };
+	public static HomeFragment homeFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ToastUtil.init(this);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		startFragment(new HomeFragment());
+		homeFragment = new HomeFragment();
+		startFragment(homeFragment);
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		Log.i("ola", "alala,nene,sabixi");
 	}
@@ -158,8 +159,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		case R.id.ll_menu3:
 			setButtonChecked(2);
-			startFragment(new HomeFragment());
-
+			startFragment(homeFragment);
 			break;
 		case R.id.ll_menu4:
 			setButtonChecked(3);

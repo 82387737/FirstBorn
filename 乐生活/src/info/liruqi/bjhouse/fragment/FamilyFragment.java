@@ -1,5 +1,6 @@
 package info.liruqi.bjhouse.fragment;
 
+import info.liruqi.bjhouse.EntryModel;
 import info.liruqi.bjhouse.MainActivity;
 import info.liruqi.bjhouse.R;
 import info.liruqi.bjhouse.activity.ItemActivity;
@@ -93,10 +94,10 @@ public class FamilyFragment extends Fragment {
 					int position, long arg3) {
 				// TODO Auto-generated method stub
 				// Toast.makeText(getActivity(), "长按", 0).show();
+				EntryModel e = new EntryModel(iconTopic[position],gridId[position]);
+				MainActivity.homeFragment.addEntry(e);
 				getActivity().getSupportFragmentManager().beginTransaction()
-						.replace(R.id.fl_main, new HomeFragment()).commit();
-				MainActivity.srcIdSelected = gridId[position];
-				MainActivity.iconTopicSelected = iconTopic[position];
+				.replace(R.id.fl_main, MainActivity.homeFragment).commit();
 				return false;
 			}
 		});
