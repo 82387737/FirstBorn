@@ -52,19 +52,20 @@ public class HomeFragment extends Fragment {
 	private LinearLayout ll_vp;
 	private ImageView iv_circle;
 	List<EntryModel> mEntrys;
-	
+
 	public HomeFragment() {
 		super();
-		final int[] gridId = { R.drawable.p1, R.drawable.p2, R.drawable.p3,	R.drawable.p4 };
-			final String[] iconTopic = { "WIFI", "周边", "管理", "停车" };
+		final int[] gridId = { R.drawable.p1, R.drawable.p2, R.drawable.p3,
+				R.drawable.p4 };
+		final String[] iconTopic = { "WIFI", "周边", "管理", "停车" };
 
-			mEntrys = new ArrayList<EntryModel>();
-			for (int i=0; i<iconTopic.length; i++) {
-				EntryModel e = new EntryModel(iconTopic[i],gridId[i]);
-				mEntrys.add(e);
-			}
+		mEntrys = new ArrayList<EntryModel>();
+		for (int i = 0; i < iconTopic.length; i++) {
+			EntryModel e = new EntryModel(iconTopic[i], gridId[i]);
+			mEntrys.add(e);
+		}
 	}
-	
+
 	Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			int index = vp.getCurrentItem();
@@ -86,18 +87,18 @@ public class HomeFragment extends Fragment {
 		initUI();
 		return view;
 	}
-	
+
 	public void onHiddenChanged(boolean hidden) {
-		if (hidden) return;
+		if (hidden)
+			return;
 		gridAdapter.notifyDataSetChanged();
 	}
-	
+
 	private void initData() {
 		vp = (ViewPager) view.findViewById(R.id.vp);
 		mGridView = (GridView) view.findViewById(R.id.gv);
-		
 
-		gridAdapter = new MyGridAdapter(); 
+		gridAdapter = new MyGridAdapter();
 		mGridView.setAdapter(gridAdapter);
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -110,7 +111,7 @@ public class HomeFragment extends Fragment {
 					mEditing = false;
 					return;
 				}
-				
+
 				if (position == 0) {
 					startActivity(new Intent(getActivity(), ItemActivity.class));
 				} else {
@@ -169,9 +170,9 @@ public class HomeFragment extends Fragment {
 				// TODO Auto-generated method stub
 				new AlertDialog.Builder(getActivity())
 						.setTitle("功能管理")
-						.setMultiChoiceItems(
-								new String[] { "WIFI", "周边商户", "访问管理", "停车",
-										"日程管理", "餐厅状态" }, null, null)
+						.setItems(
+								new String[] { "北京", "上海", "广州", "深圳", "杭州",
+										"青岛", "大连", "武汉" }, null)
 						.setPositiveButton("确定", null)
 						.setNegativeButton("取消", null).show();
 			}
@@ -194,7 +195,6 @@ public class HomeFragment extends Fragment {
 			}
 		});
 
-		
 		mGridView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			private ImageView iv_delete_icon;
@@ -209,7 +209,7 @@ public class HomeFragment extends Fragment {
 				// iv_delete_icon.setVisibility(View.VISIBLE);
 				// arg1.startAnimation(animation);
 				mEditing = true;
-				
+
 				gridAdapter.notifyDataSetChanged();
 				return true;
 			}
@@ -224,7 +224,7 @@ public class HomeFragment extends Fragment {
 			ToastUtil.show("首页快捷入口已满，请删除后再添加");
 		}
 	}
-	
+
 	private void initUI() {
 		// TODO Auto-generated method stub
 
@@ -276,7 +276,6 @@ public class HomeFragment extends Fragment {
 		handler.sendEmptyMessageDelayed(0, 2000);
 	}
 
-
 	class MyViewAdapter extends PagerAdapter {
 
 		private ImageView iv;
@@ -314,12 +313,12 @@ public class HomeFragment extends Fragment {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-//			if (MainActivity.srcIdSelected != -1
-//					&& MainActivity.iconTopicSelected != null) {
-//				return mEntrys.size() + 1;
-//			} else {
-			
-			return mEntrys.size();	
+			// if (MainActivity.srcIdSelected != -1
+			// && MainActivity.iconTopicSelected != null) {
+			// return mEntrys.size() + 1;
+			// } else {
+
+			return mEntrys.size();
 		}
 
 		@Override
@@ -334,20 +333,20 @@ public class HomeFragment extends Fragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = View.inflate(getActivity(), R.layout.grid_item,
-					null);
+			View view = View.inflate(getActivity(), R.layout.grid_item, null);
 			iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			tv_gv = (TextView) view.findViewById(R.id.tv_gv);
-//			if (position >= mEntrys.size() && MainActivity.srcIdSelected != -1
-//					&& MainActivity.iconTopicSelected != null) {
-//				iv_gv.setBackgroundResource(MainActivity.srcIdSelected);
-//				tv_gv.setText(MainActivity.iconTopicSelected);
-//			} else
+			// if (position >= mEntrys.size() && MainActivity.srcIdSelected !=
+			// -1
+			// && MainActivity.iconTopicSelected != null) {
+			// iv_gv.setBackgroundResource(MainActivity.srcIdSelected);
+			// tv_gv.setText(MainActivity.iconTopicSelected);
+			// } else
 			{
 				iv_gv.setBackgroundResource(mEntrys.get(position).resID);
 				tv_gv.setText(mEntrys.get(position).name);
 			}
-			
+
 			if (mEditing) {
 				Animation animation = AnimationUtils.loadAnimation(
 						getActivity(), R.anim.rotate);

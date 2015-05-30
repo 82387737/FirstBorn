@@ -42,10 +42,10 @@ public class EntertainmentFragment extends Fragment {
 	private GridView gv;
 	private static int[] srcId = { R.drawable.i, R.drawable.j, R.drawable.k,
 			R.drawable.l, };
-	private static int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,
-			R.drawable.p8, R.drawable.addfunc };
+	private static int[] gridId = { R.drawable.p5, R.drawable.p6,
+			R.drawable.p7, R.drawable.p8, R.drawable.addfunc };
 	private static String[] iconTopic = { "打折促销", "餐厅等位", "票务销售", "商户列表", "添加" };
-	private	static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
+	private static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
 			"附近有好友", "附近有购物中心，附近有学校" };
 	private View view;
 	public static List<View> gridList = new ArrayList<View>();
@@ -84,34 +84,45 @@ public class EntertainmentFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View args1,
 					int position, long arg3) {
-
-				Intent intent = new Intent(getActivity(),
-						OtherItemsActivity.class);
-				intent.putExtra("text",
-						((TextView) args1.findViewById(R.id.tv_gv)).getText());
-				startActivity(intent);
+				if (position == gridList.size()-3) {
+					// TODO Auto-generated method stub
+					new AlertDialog.Builder(getActivity())
+							.setTitle("功能管理")
+							.setMultiChoiceItems(
+									new String[] { "打着促销", "餐厅等位", "票务销售", "商户列表",
+											"抢购预约", "赠品领取" }, null, null)
+							.setPositiveButton("确定", null)
+							.setNegativeButton("取消", null).show();
+				} else {
+					Intent intent = new Intent(getActivity(),
+							OtherItemsActivity.class);
+					intent.putExtra("text", ((TextView) args1
+							.findViewById(R.id.tv_gv)).getText());
+					startActivity(intent);
+				}
 			}
 		});
 		gv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-			
-
 			private ImageView iv_delete_icon;
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, final View arg1,
-					int position, long arg3) {
+			public boolean onItemLongClick(AdapterView<?> arg0,
+					final View arg1, int position, long arg3) {
 				// TODO Auto-generated method stub
-			    //new MainActivity().setButtonChecked(3);
-				//ImageView iv_delete_icon = (ImageView) gv.findViewById(R.id.iv_delete_icon);
-				//iv_delete_icon.setVisibility(View.VISIBLE);
-                MainActivity.animation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);  
-               // arg1.startAnimation(animation);  
-                for(View view:gridList){
-                	iv_delete_icon = (ImageView) view.findViewById(R.id.iv_delete_icon);
-                	iv_delete_icon.setVisibility(View.VISIBLE);
-                	view.startAnimation(MainActivity.animation);
-                }
+				// new MainActivity().setButtonChecked(3);
+				// ImageView iv_delete_icon = (ImageView)
+				// gv.findViewById(R.id.iv_delete_icon);
+				// iv_delete_icon.setVisibility(View.VISIBLE);
+				MainActivity.animation = AnimationUtils.loadAnimation(
+						getActivity(), R.anim.rotate);
+				// arg1.startAnimation(animation);
+				for (View view : gridList) {
+					iv_delete_icon = (ImageView) view
+							.findViewById(R.id.iv_delete_icon);
+					iv_delete_icon.setVisibility(View.VISIBLE);
+					view.startAnimation(MainActivity.animation);
+				}
 				return true;
 			}
 		});
@@ -162,23 +173,6 @@ public class EntertainmentFragment extends Fragment {
 	}
 
 	private void initUI() {
-		ImageView iv_middle_titlebar = (ImageView) view
-				.findViewById(R.id.iv_middle_titlebar);
-		iv_middle_titlebar.setVisibility(View.VISIBLE);
-		iv_middle_titlebar.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				new AlertDialog.Builder(getActivity())
-						.setTitle("功能管理")
-						.setMultiChoiceItems(
-								new String[] { "打着促销", "餐厅等位", "票务销售", "商户列表",
-										"抢购预约", "赠品领取" }, null, null)
-						.setPositiveButton("确定", null)
-						.setNegativeButton("取消", null).show();
-			}
-		});
 		intGridIcon();
 		setViewPager();
 		setGridView();
@@ -186,8 +180,9 @@ public class EntertainmentFragment extends Fragment {
 
 	public static void intGridIcon() {
 		// TODO Auto-generated method stub
-		for(View view :gridList){
-			ImageView iv_delete_icon =  (ImageView) view.findViewById(R.id.iv_delete_icon);
+		for (View view : gridList) {
+			ImageView iv_delete_icon = (ImageView) view
+					.findViewById(R.id.iv_delete_icon);
 			iv_delete_icon.setVisibility(View.INVISIBLE);
 		}
 	}
@@ -292,8 +287,7 @@ public class EntertainmentFragment extends Fragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = View.inflate(getActivity(), R.layout.grid_item,
-					null);
+			View view = View.inflate(getActivity(), R.layout.grid_item, null);
 			ImageView iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			TextView tv_gv = (TextView) view.findViewById(R.id.tv_gv);
 			iv_gv.setBackgroundResource(gridId[position]);

@@ -34,10 +34,11 @@ public class WorkFragment extends Fragment {
 	private GridView gv;
 	private static int[] srcId = { R.drawable.m, R.drawable.n, R.drawable.o,
 			R.drawable.p, };
-	private static int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,R.drawable.p8,R.drawable.addfunc };
-	private static String[] iconTopic = { "商业资讯", "日程提醒", "打卡", "视频会议","添加" };
-	private static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站",
-			"附近有餐厅", "附近有好友", "附近有购物中心，附近有学校" };
+	private static int[] gridId = { R.drawable.p5, R.drawable.p6,
+			R.drawable.p7, R.drawable.p8, R.drawable.addfunc };
+	private static String[] iconTopic = { "商业资讯", "日程提醒", "打卡", "视频会议", "添加" };
+	private static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
+			"附近有好友", "附近有购物中心，附近有学校" };
 	private View view;
 	private LinearLayout ll_vp;
 	private ImageView iv_circle;
@@ -64,7 +65,8 @@ public class WorkFragment extends Fragment {
 	}
 
 	private void initData() {
-		TextView tv_middle_titlebar = (TextView)view.findViewById(R.id.tv_middle_titlebar);
+		TextView tv_middle_titlebar = (TextView) view
+				.findViewById(R.id.tv_middle_titlebar);
 		tv_middle_titlebar.setText("工作");
 		vp = (ViewPager) view.findViewById(R.id.vp);
 		gv = (GridView) view.findViewById(R.id.gv);
@@ -73,13 +75,23 @@ public class WorkFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View args1,
 					int position, long arg3) {
-
+				if (position == iconTopic.length - 1) {
+					// TODO Auto-generated method stub
+					new AlertDialog.Builder(getActivity())
+							.setTitle("功能管理")
+							.setMultiChoiceItems(
+									new String[] { "商业资讯", "日程提醒", "打卡", "视频会议",
+											"协同办公", "场地预约", "餐厅预订" }, null, null)
+							.setPositiveButton("确定", null)
+							.setNegativeButton("取消", null).show();
+				} else {
 					Intent intent = new Intent(getActivity(),
 							OtherItemsActivity.class);
 					intent.putExtra("text", ((TextView) args1
 							.findViewById(R.id.tv_gv)).getText());
 					startActivity(intent);
 				}
+			}
 		});
 		gv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -87,11 +99,13 @@ public class WorkFragment extends Fragment {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
-				//Toast.makeText(getActivity(), "长按", 0).show();
-				EntryModel e = new EntryModel(iconTopic[position],gridId[position]);
+				// Toast.makeText(getActivity(), "长按", 0).show();
+				EntryModel e = new EntryModel(iconTopic[position],
+						gridId[position]);
 				MainActivity.homeFragment.addEntry(e);
 				getActivity().getSupportFragmentManager().beginTransaction()
-				.replace(R.id.fl_main, MainActivity.homeFragment).commit();
+						.replace(R.id.fl_main, MainActivity.homeFragment)
+						.commit();
 				return false;
 			}
 		});
@@ -142,23 +156,6 @@ public class WorkFragment extends Fragment {
 	}
 
 	private void initUI() {
-		ImageView iv_middle_titlebar = (ImageView) view
-				.findViewById(R.id.iv_middle_titlebar);
-		iv_middle_titlebar.setVisibility(View.VISIBLE);
-		iv_middle_titlebar.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				new AlertDialog.Builder(getActivity())
-						.setTitle("功能管理")
-						.setMultiChoiceItems(
-								new String[] { "商业资讯", "日程提醒", "打卡", "视频会议",
-										"协同办公","场地预约","餐厅预订"}, null, null)
-						.setPositiveButton("确定", null)
-						.setNegativeButton("取消", null).show();
-			}
-		});
 		setViewPager();
 		setGridView();
 	}
@@ -263,8 +260,7 @@ public class WorkFragment extends Fragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = View.inflate(getActivity(), R.layout.grid_item,
-					null);
+			View view = View.inflate(getActivity(), R.layout.grid_item, null);
 			ImageView iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			TextView tv_gv = (TextView) view.findViewById(R.id.tv_gv);
 			iv_gv.setBackgroundResource(gridId[position]);

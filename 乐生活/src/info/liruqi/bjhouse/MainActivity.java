@@ -1,5 +1,7 @@
 package info.liruqi.bjhouse;
 
+import java.util.ArrayList;
+
 import info.liruqi.bjhouse.customcomponent.MyDialog;
 import info.liruqi.bjhouse.fragment.EntertainmentFragment;
 import info.liruqi.bjhouse.fragment.FamilyFragment;
@@ -50,7 +52,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		homeFragment = new HomeFragment();
 		startFragment(homeFragment);
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		Log.i("ola", "alala,nene,sabixi");
+		EntertainmentFragment.gridList = new ArrayList<View>();
 	}
 
 	@Override
@@ -68,6 +70,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			super.onBackPressed();
 		}
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -79,11 +82,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 		dialog = null;
 	}
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-	Log.i("ano", "dialog可以让我失去焦点吗？");
+		Log.i("ano", "dialog可以让我失去焦点吗？");
 	}
 
 	@Override
@@ -106,7 +110,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			float x = values[0]; // x轴方向的重力加速度，向右为正
 			float y = values[1]; // y轴方向的重力加速度，向前为正
 			float z = values[2]; // z轴方向的重力加速度，向上为正
-			Log.i(TAG, "x轴方向的重力加速度" + x + "；y轴方向的重力加速度" + y + "；z轴方向的重力加速度" + z);
 			// 一般在这三个方向的重力加速度达到40就达到了摇晃手机的状态。
 			int medumValue = 17;// 如果不敏感请自行调低该数值,低于10的话就不行了,因为z轴上的加速度本身就已经达到10了
 			if (Math.abs(x) > medumValue || Math.abs(y) > medumValue
@@ -128,7 +131,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	 */
 
 	Handler handler = new Handler() {
-
 
 		@Override
 		public void handleMessage(Message msg) {

@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +39,8 @@ public class FamilyFragment extends Fragment {
 	private GridView gv;
 	private static int[] srcId = { R.drawable.e, R.drawable.f, R.drawable.g,
 			R.drawable.h, };
-	private static int[] gridId = { R.drawable.p5, R.drawable.p6, R.drawable.p7,
-			R.drawable.p8, R.drawable.addfunc };
+	private static int[] gridId = { R.drawable.p5, R.drawable.p6,
+			R.drawable.p7, R.drawable.p8, R.drawable.addfunc };
 	private static String[] iconTopic = { "视频电话", "自助缴费", "快递柜", "活动报名", "添加" };
 	private static String[] textOfRain = { "附近有停车场", "附近有景点", "附近有车站", "附近有餐厅",
 			"附近有好友", "附近有购物中心，附近有学校" };
@@ -79,12 +80,24 @@ public class FamilyFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View args1,
 					int position, long arg3) {
-
-				Intent intent = new Intent(getActivity(),
-						OtherItemsActivity.class);
-				intent.putExtra("text",
-						((TextView) args1.findViewById(R.id.tv_gv)).getText());
-				startActivity(intent);
+				Log.i("haha", iconTopic.length+"");
+				Log.i("haha", position+"");
+				if (position == iconTopic.length - 1) {
+					// TODO Auto-generated method stub
+					new AlertDialog.Builder(getActivity())
+							.setTitle("功能管理")
+							.setMultiChoiceItems(
+									new String[] { "视频电话", "自助缴费", "快递柜", "活动报名",
+											"待办事项", "场地预约", "投票调查" }, null, null)
+							.setPositiveButton("确定", null)
+							.setNegativeButton("取消", null).show();
+				} else {
+					Intent intent = new Intent(getActivity(),
+							OtherItemsActivity.class);
+					intent.putExtra("text", ((TextView) args1
+							.findViewById(R.id.tv_gv)).getText());
+					startActivity(intent);
+				}
 			}
 		});
 		gv.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -94,10 +107,12 @@ public class FamilyFragment extends Fragment {
 					int position, long arg3) {
 				// TODO Auto-generated method stub
 				// Toast.makeText(getActivity(), "长按", 0).show();
-				EntryModel e = new EntryModel(iconTopic[position],gridId[position]);
+				EntryModel e = new EntryModel(iconTopic[position],
+						gridId[position]);
 				MainActivity.homeFragment.addEntry(e);
 				getActivity().getSupportFragmentManager().beginTransaction()
-				.replace(R.id.fl_main, MainActivity.homeFragment).commit();
+						.replace(R.id.fl_main, MainActivity.homeFragment)
+						.commit();
 				return false;
 			}
 		});
@@ -148,24 +163,6 @@ public class FamilyFragment extends Fragment {
 	}
 
 	private void initUI() {
-		ImageView iv_middle_titlebar = (ImageView) view
-				.findViewById(R.id.iv_middle_titlebar);
-		iv_middle_titlebar.setVisibility(View.VISIBLE);
-		iv_middle_titlebar.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				new AlertDialog.Builder(getActivity())
-						.setTitle("功能管理")
-						.setMultiChoiceItems(
-								new String[] { "视频电话", "自助缴费", "快递柜", "活动报名",
-										"待办事项", "场地预约", "投票调查" }, null, null)
-						.setPositiveButton("确定", null)
-						.setNegativeButton("取消", null).show();
-			}
-		});
-
 		setViewPager();
 		setGridView();
 	}
@@ -270,8 +267,7 @@ public class FamilyFragment extends Fragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = View.inflate(getActivity(), R.layout.grid_item,
-					null);
+			View view = View.inflate(getActivity(), R.layout.grid_item, null);
 			ImageView iv_gv = (ImageView) view.findViewById(R.id.iv_gv);
 			TextView tv_gv = (TextView) view.findViewById(R.id.tv_gv);
 			iv_gv.setBackgroundResource(gridId[position]);
