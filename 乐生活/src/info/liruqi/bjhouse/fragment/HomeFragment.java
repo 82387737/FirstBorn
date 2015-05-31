@@ -11,6 +11,7 @@ import info.liruqi.bjhouse.activity.ItemActivity;
 import info.liruqi.bjhouse.activity.OtherItemsActivity;
 import info.liruqi.bjhouse.customcomponent.MyDialog;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -172,7 +173,60 @@ public class HomeFragment extends Fragment {
 						.setTitle("功能管理")
 						.setItems(
 								new String[] { "北京", "上海", "广州", "深圳", "杭州",
-										"青岛", "大连", "武汉" }, null)
+										"青岛", "大连", "武汉" },
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										switch (which) {
+										case 0: {
+											new AlertDialog.Builder(
+													getActivity())
+													.setTitle("选择楼盘")
+													.setItems(
+															new String[] {
+																	"韩建雅苑",
+																	"花雨汀",
+																	"春辉时代	",
+																	"万润北京运河湾",
+																	"星光城",
+																	"中国铁建顺鑫汇",
+																	"华夏幸福城",
+																	"鸿坤罗纳河谷" },
+															null)
+
+													.setPositiveButton("确定",
+															null)
+													.setNegativeButton("取消",
+															null).show();
+										}
+											break;
+										default: {
+											new AlertDialog.Builder(
+													getActivity())
+													.setTitle("选择楼盘")
+													.setItems(
+															new String[] {
+																	"宝华源墅",
+																	"龙湖北城天街",
+																	"上海中骏广场",
+																	"阳光城MODO",
+																	"国浩长风汇都",
+																	"曹路家苑",
+																	"中海万锦城",
+																	"宝华栎庭" },
+															null)
+
+													.setPositiveButton("确定",
+															null)
+													.setNegativeButton("取消",
+															null).show();
+										}
+										}
+									}
+								})
+
 						.setPositiveButton("确定", null)
 						.setNegativeButton("取消", null).show();
 			}

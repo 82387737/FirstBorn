@@ -33,14 +33,21 @@
             android:text="新时代大厦"
             android:textColor="#ffffff"
             android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/iv_middle_titlebar"
+		<ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_middle_titlebar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="3dp"
+            android:visibility="invisible"
+            android:src="@drawable/jiantou1_disable" />
+        
+        <ImageView
+            android:id="@+id/iv_middle_titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_middle_titlebar"
+            android:layout_centerVertical="true"
             android:src="@drawable/jiantou1_disable" />
 
         <ImageView
